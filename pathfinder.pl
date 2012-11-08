@@ -1,13 +1,19 @@
 % Consult a graph file before executing.
 
-%%%% findPath(+Start, +End, -Path, -TotalLength)
-findPath(Previous, End, [End], TotalLength) :-
-	link(Previous, End, TotalLength).
+fp(Start, End, Path, TotalLength) :-
+	findPath(Start, End, [Start], Path, TotalLength).
 
-findPath(Start, End, [Next|PathTail], TotalLength) :-
+%%%% findPath(+Start, +End, +PathSoFar, -Path, -TotalLength)
+findPath(Previous, End, PathSoFar, Path, TotalLength) :-
+	link(Previous, End, TotalLength),
+	append(PathSoFar, [End], Path).
+
+% General recursive case.
+findPath(Start, End, PathSoFar, Path, TotalLength) :-
 	link(Start, Next, Length),
-	notVisited(Next, PathTail),
-	findPath(Next, End, PathTail, RecursiveLength),
+	notVisited(Next, PathSoFar),
+	append(PathSoFar, [Next], NewPath),
+	findPath(Next, End, NewPath, Path, RecursiveLength),
 	TotalLength is Length + RecursiveLength.
 
 notVisited(Node, ListOfNodes) :-

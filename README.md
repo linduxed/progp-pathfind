@@ -15,5 +15,13 @@ A simple directed graph with egde lenghts could therefore be defined like this:
     link(p2, p3, 6).
 
 The algorithm should find the path by iteratively increasing the maximum length
-of the path. The algorithm must use the backtracking mechanism of Prolog to
-accomplish this iteration. The algorith should handle cyclic graphs.
+of the path. The algorith should handle cyclic graphs.
+
+To start a search, first consult a graph and then run the following command to
+find the shortest path:
+
+    fsp(Start, End, MaxLength, Path, TotalLength).
+
+Where ```Start``` and ```End``` are nodes, while ```MaxLength``` is an integer
+representing the maximal length of the path at which to stop looking for
+a solution.

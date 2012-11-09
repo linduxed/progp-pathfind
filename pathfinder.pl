@@ -3,16 +3,17 @@
 %
 
 % Wrapping predicates for finding shortest path.
-fsp(Start, End, Path, TotalLength) :-
-	lowestLengthFP(Start, End, 1, Path, TotalLength).
+fsp(Start, End, MaxLength, Path, TotalLength) :-
+	lowestLengthFP(Start, End, 1, MaxLength, Path, TotalLength).
 
-lowestLengthFP(Start, End, RequiredLength, Path, TotalLength) :-
+lowestLengthFP(Start, End, RequiredLength, _, Path, TotalLength) :-
 	fp(Start, End, Path, RecursiveLength),
 	RequiredLength =:= RecursiveLength,
 	TotalLength is RecursiveLength.
 
-lowestLengthFP(Start, End, RequiredLength, Path, TotalLength) :-
-	lowestLengthFP(Start, End, RequiredLength+1, Path, TotalLength).
+lowestLengthFP(Start, End, RequiredLength, MaxLength, Path, TotalLength) :-
+	RequiredLength < MaxLength,
+	lowestLengthFP(Start, End, RequiredLength+1, MaxLength, Path, TotalLength).
 
 
 % Wrapping predicate for finding path.

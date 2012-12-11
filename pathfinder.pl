@@ -20,7 +20,8 @@ lowestLengthFP(Start, End, RequiredLength, _, Path, TotalLength) :-
 % length is compared) is raised.
 lowestLengthFP(Start, End, RequiredLength, MaxLength, Path, TotalLength) :-
 	RequiredLength < MaxLength,
-	lowestLengthFP(Start, End, RequiredLength+1, MaxLength, Path, TotalLength).
+	NewReqLength is RequiredLength + 1,
+	lowestLengthFP(Start, End, NewReqLength, MaxLength, Path, TotalLength).
 
 % Wrapping predicate for finding path.
 fp(Start, End, Path, TotalLength) :-
